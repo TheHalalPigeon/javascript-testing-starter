@@ -1,12 +1,6 @@
-import { 
-  vi,
-  it, 
-  expect, 
-  describe, 
-  beforeEach
-} from "vitest";
+import { vi, it, expect, describe } from "vitest";
 
-import { 
+import {
   getDiscount,
   getPriceInCurrency,
   getShippingInfo,
@@ -14,7 +8,7 @@ import {
   login,
   renderPage,
   signUp,
-  submitOrder
+  submitOrder,
 } from "../src/mocking";
 
 import { getExchangeRate } from "../src/libs/currency";
@@ -28,14 +22,13 @@ vi.mock("../src/libs/currency");
 vi.mock("../src/libs/shipping");
 vi.mock("../src/libs/analytics");
 vi.mock("../src/libs/payment");
-vi.mock("../src/libs/email", async importOriginal => {
+vi.mock("../src/libs/email", async (importOriginal) => {
   const originalModule = await importOriginal();
   return {
     ...originalModule,
-    sendEmail: vi.fn()
-  }
+    sendEmail: vi.fn(),
+  };
 });
-
 
 describe("getPriceInCurrency", () => {
   it("should return price in target currency", () => {
@@ -75,15 +68,15 @@ describe("renderPage", () => {
   });
 
   it("should call analytics", async () => {
-    const result = await renderPage();
+    await renderPage();
 
     expect(trackPageView).toHaveBeenCalledWith("/home");
   });
 });
 
 describe("submitOrder", () => {
-  const order = { totalAmount: 10 }
-  const creditCard = { creditCardNumber: 1234 }
+  const order = { totalAmount: 10 };
+  const creditCard = { creditCardNumber: 1234 };
 
   it("should charge the customer", async () => {
     vi.mocked(charge).mockResolvedValue({ status: "success" });
@@ -126,7 +119,7 @@ describe("signUp", () => {
   });
 
   it("should send the welcome email if email is valid", async () => {
-    const result = await signUp(email);
+    await signUp(email);
 
     expect(sendEmail).toHaveBeenCalledOnce();
     const args = vi.mocked(sendEmail).mock.calls[0];
@@ -140,7 +133,7 @@ describe("login", () => {
   it("should email the one-time login code", async () => {
     const email = "name@domain.com";
     const spy = vi.spyOn(security, "generateCode");
-    
+
     await login(email);
 
     const securityCode = spy.mock.results[0].value.toString();

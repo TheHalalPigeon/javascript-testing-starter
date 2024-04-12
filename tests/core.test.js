@@ -1,19 +1,14 @@
-import { 
-  beforeEach,
-  describe, 
-  expect, 
-  it
-} from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 
-import { 
-  calculateDiscount, 
-  canDrive, 
-  fetchData, 
-  getCoupons, 
-  isPriceInRange, 
-  isValidUsername, 
-  Stack, 
-  validateUserInput 
+import {
+  calculateDiscount,
+  canDrive,
+  fetchData,
+  getCoupons,
+  isPriceInRange,
+  isValidUsername,
+  Stack,
+  validateUserInput,
 } from "../src/core";
 
 describe("getCoupons", () => {
@@ -25,7 +20,7 @@ describe("getCoupons", () => {
 
   it("should return objects with propeties of code and discount", () => {
     const coupons = getCoupons();
-    coupons.forEach(coupon => {
+    coupons.forEach((coupon) => {
       expect(coupon).toHaveProperty("code");
       expect(coupon).toHaveProperty("discount");
       expect(typeof coupon).toBeTruthy();
@@ -34,7 +29,7 @@ describe("getCoupons", () => {
 
   it("should return an array with valid discounts", () => {
     const coupons = getCoupons();
-    coupons.forEach(coupon => {
+    coupons.forEach((coupon) => {
       expect(coupon).toHaveProperty("discount");
       expect(typeof coupon.discount).toBe("number");
       expect(coupon.discount).toBeGreaterThan(0);
@@ -99,7 +94,7 @@ describe("isPriceInRange", () => {
     { scenario: "price > max", price: 200, result: false },
     { scenario: "price = min", price: 0, result: true },
     { scenario: "price = max", price: 100, result: true },
-    { scenario: "price between min and max", price: 50, result: true }
+    { scenario: "price between min and max", price: 50, result: true },
   ])("should return $result if $scenario", ({ price, result }) => {
     expect(isPriceInRange(price, 0, 100)).toBe(result);
   });
@@ -148,10 +143,10 @@ describe("canDrive", () => {
   it.each([
     { age: 15, country: "US", result: false },
     { age: 16, country: "US", result: true },
-    { age: 17, country: "US", result: true},
+    { age: 17, country: "US", result: true },
     { age: 16, country: "UK", result: false },
     { age: 17, country: "UK", result: true },
-    { age: 18, country: "UK", result: true},
+    { age: 18, country: "UK", result: true },
   ])("should return $result for $age, $country", ({ age, country, result }) => {
     expect(canDrive(age, country)).toBe(result);
   });
@@ -160,7 +155,7 @@ describe("canDrive", () => {
 describe("fetchData", () => {
   it("should return a promise that will resolve to an array of numbers", async () => {
     try {
-      const result = await fetchData();
+      await fetchData();
     } catch (err) {
       expect(err).toHaveProperty("reason");
       expect(err.reason).toMatch(/fail/i);
@@ -184,7 +179,7 @@ describe("Stack", () => {
   it("pop should remove and return the top item from the stack", () => {
     stack.push(1);
     stack.push(2);
-    
+
     const poppedItem = stack.pop();
 
     expect(poppedItem).toBe(2);

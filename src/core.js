@@ -58,8 +58,8 @@ export function isValidUsername(username) {
 export function canDrive(age, countryCode) {
   const legalDrivingAge = {
     US: 16,
-    UK: 17
-  }
+    UK: 17,
+  };
 
   if (!legalDrivingAge[countryCode]) {
     return "Invalid country code";
@@ -71,13 +71,6 @@ export function canDrive(age, countryCode) {
 // Lesson: Testing asynchronous code
 export function fetchData() {
   return Promise.reject({ reason: "Operation failed" });
-
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const data = [1, 2, 3];
-      resolve(data);
-    });
-  });
 }
 
 // Lesson: Setup and teardown

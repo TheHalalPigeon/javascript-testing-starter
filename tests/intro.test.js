@@ -1,15 +1,6 @@
-import { 
-  describe,
-  it,
-  expect
-} from "vitest";
+import { describe, it, expect } from "vitest";
 
-import { 
-  calculateAverage, 
-  factorial, 
-  fizzBuzz, 
-  max 
-} from "../src/intro";
+import { calculateAverage, factorial, fizzBuzz, max } from "../src/intro";
 
 describe("max", () => {
   it("should return the first arg if it is greater", () => {

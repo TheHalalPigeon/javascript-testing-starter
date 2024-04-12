@@ -30,9 +30,9 @@ export async function submitOrder(order, creditCard) {
   const paymentResult = await charge(creditCard, order.totalAmount);
 
   if (paymentResult.status === "failed")
-    return { success: false, error: "payment_error" }
+    return { success: false, error: "payment_error" };
 
-  return { success: true }
+  return { success: true };
 }
 
 // Lesson: Partial mocking
